@@ -3,6 +3,7 @@ import { Header } from "../component/Header";
 import Modal from "../component/Modal";
 import { useAppStore } from "../useAppStore";
 import { useEffect } from "react";
+import Notification from "../component/Notification";
 
 export const Layout = () => {
   const loadFronLocalStorage = useAppStore((state)=>state.loadFronLocalStorage)
@@ -17,6 +18,7 @@ export const Layout = () => {
       <Outlet />
       </main>
       <Modal/>
+      <Notification/>
     </>
   );
 };

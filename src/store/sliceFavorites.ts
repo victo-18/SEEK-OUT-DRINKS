@@ -1,5 +1,7 @@
 import { StateCreator } from "zustand";
 import { Ingredient } from "../types/dataType";
+import { notification, NotificationProps } from "./sliceNotification";
+
 export type FavoriesPropsStore = {
   favorites: Ingredient[];
   addToFavorites: (recipe: Ingredient) => void;
@@ -7,7 +9,7 @@ export type FavoriesPropsStore = {
   loadFronLocalStorage: () => void
 };
 
-export const favoritesStore: StateCreator<FavoriesPropsStore> = (set, get) => ({
+export const favoritesStore: StateCreator<FavoriesPropsStore &  NotificationProps ,[],[],FavoriesPropsStore > = (set, get,api) => ({
   favorites: [],
   addToFavorites: (recipe) => {
    
@@ -18,12 +20,24 @@ export const favoritesStore: StateCreator<FavoriesPropsStore> = (set, get) => ({
         favorites: state.favorites.filter(
           (item) => item.idDrink !== recipe.idDrink
         ),
+      
       }));
+     
+
+      notification(set, get,api).showNotification(
+        {text:'Successfully removed',
+        error:false
+      })
     } else {
       set({
         favorites: [...get().favorites, recipe]
       });
       localStorage.setItem("favorite", JSON.stringify(get().favorites))
+      console.log("Mostrando notificacion")
+      notification(set, get,api).showNotification(
+        {text:'Successfully add',
+        error:false
+      })
     }
    
   },
