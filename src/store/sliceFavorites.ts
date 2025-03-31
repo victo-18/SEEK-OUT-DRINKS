@@ -33,7 +33,6 @@ export const favoritesStore: StateCreator<FavoriesPropsStore &  NotificationProp
         favorites: [...get().favorites, recipe]
       });
       localStorage.setItem("favorite", JSON.stringify(get().favorites))
-      console.log("Mostrando notificacion")
       notification(set, get,api).showNotification(
         {text:'Successfully add',
         error:false
