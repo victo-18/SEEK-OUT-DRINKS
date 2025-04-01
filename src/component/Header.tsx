@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../public/logo.svg";
 import { useLocation } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppStore } from "../useAppStore";
 import { ErrorMessage } from "./ErrorMessage";
 import { SearchRecipy } from "../types/dataType";
@@ -13,7 +13,10 @@ export const Header = () => {
     category:'',
   })
   const { pathname } = useLocation();
-  const isHome = useMemo(() => pathname === "/", [pathname]);
+  //const isHome = useMemo(() => pathname === "/", [pathname]);
+  const isHome = pathname === "/" || pathname === "" || pathname === "/index.html";
+
+  console.log(isHome)
   //Definding our store to  use the state
   const fetchCategores = useAppStore((state)=>state.fetchCategores)
   const categories = useAppStore((state)=>state.categories)
@@ -43,7 +46,7 @@ return
  setErrorMessage('')
 }
   return (
-    <header className={isHome? "bg-[url('./public/bg.jpg')] bg-center bg-cover":" bg-slate-800"}>
+    <header className={isHome? "bg-[url('./public/bg.jpg')] bg-center bg-cover":"bg-slate-800"}>
       <div className=" mx-auto container px-5 py-4">
         <div className=" flex justify-between items-center">
           <div>
